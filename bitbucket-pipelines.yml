@@ -12,7 +12,6 @@ pipelines:
           - flutter
         script:
           - git fetch --unshallow || git fetch --all
-          - flutter upgrade
           - flutter doctor -v
           - flutter pub get
           - flutter test
