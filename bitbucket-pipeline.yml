@@ -1,0 +1,23 @@
+image: $DOCKERHUB_USERNAME/flutter-custom:latest
+
+definitions:
+  caches:
+    flutter: ~/.pub-cache
+
+pipelines:
+  default:
+    - step:
+        name: Build & Test Flutter App
+        caches:
+          - flutter
+        script:
+          # Ensure complete Git history
+          - git fetch --unshallow || git fetch --all
+          # Check Flutter setup
+          - flutter doctor -v
+          # Resolve dependencies
+          - flutter pub get
+          # Run tests
+          - flutter test
+          # Build release APK
+          - flutter build apk --release
