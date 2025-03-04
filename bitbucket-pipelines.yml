@@ -1,18 +1,15 @@
-image: cirrusci/flutter:latest
-  
-definitions:
-  caches:
-    flutter: ~/.pub-cache
+image: docker:20.10.16
 
 pipelines:
   default:
     - step:
-        name: Build & Test Flutter App
-        caches:
-          - flutter
+        name: Build & Push Custom Flutter Image
+        services:
+          - docker
         script:
-          - git fetch --unshallow || git fetch --all
-          - flutter doctor -v
-          - flutter pub get
-          - flutter test
-          - flutter build apk --release
+         
+          - docker build -t $DOCKERHUB_USERNAME/flutter-custom:latest .
+          # Log in to Docker Hub (ensure DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD are set as repo variables)
+          - echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+          # Push the built image
+          - docker push $DOCKERHUB_USERNAME/flutter-custom:latest
