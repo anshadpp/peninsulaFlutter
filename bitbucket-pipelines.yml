@@ -11,6 +11,7 @@ pipelines:
         caches:
           - flutter
         script:
+          - git fetch --unshallow || git fetch --all
           - flutter channel stable
           - flutter upgrade
           - flutter doctor -v
