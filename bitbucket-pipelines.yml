@@ -11,7 +11,7 @@ pipelines:
         caches:
           - flutter
         script:
-          -flutter upgrade
+          - flutter upgrade
           - flutter doctor -v
           - flutter pub get
           - flutter test
