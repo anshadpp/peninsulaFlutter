@@ -143,7 +143,19 @@ class _RegistrationState extends State<Registration> {
                             widthRatio: widthRatio,
                             left: 32,
                             top: 669,
-                            width: 329,
+                            width: 83,
+                            textField: labelNameUtil(
+                                labelName: "91",
+                                opacity: 0.3,
+                                textController: registrationProvider
+                                    .phoneNumber_text_controller),
+                          ),
+                          regField(
+                            heightRatio: heightRatio,
+                            widthRatio: widthRatio,
+                            left: 123,
+                            top: 669,
+                            width: 238,
                             textField: labelNameUtil(
                                 labelName: "Phone Number",
                                 opacity: 0.3,
