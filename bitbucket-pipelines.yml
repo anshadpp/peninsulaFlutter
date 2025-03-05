@@ -1,0 +1,13 @@
+# bitbucket-pipelines.yml
+image: atlassian/default-image:2
+
+pipelines:
+  default:
+    - step:
+        name: "Build and Test"
+        script:
+          - echo "Starting Build..."
+          - # Insert your build commands here
+          - echo "Running Tests..."
+          - # Insert your test commands here
+          - echo "Pipeline execution completed!"
