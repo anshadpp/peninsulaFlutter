@@ -21,10 +21,15 @@ class _CommunityState extends State<Community> {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              color: Colors.white,
+              height: heightRatio * 48,
+              width: widthRatio * 393,
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: Colors.black)),
+                color: Colors.white,
+              ),
               padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
@@ -51,9 +56,23 @@ class _CommunityState extends State<Community> {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: deviceWidth,
               child: Image.asset(
                 'assets/images/aa.png',
+              ),
+            ),
+            Container(
+              width: deviceWidth,
+              height: heightRatio * 47,
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.black)),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.only(left: 17),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Text("Caption"), Text("date")],
               ),
             ),
           ],
@@ -61,4 +80,10 @@ class _CommunityState extends State<Community> {
       ),
     );
   }
+}
+
+List<Widget> posts() {
+  List<Widget> posts = [];
+
+  return posts;
 }
