@@ -27,7 +27,7 @@ Positioned regField(
     top: heightRatio * top,
     left: widthRatio * left,
     child: Container(
-      alignment: Alignment(100.0, 100.0),
+      alignment: Alignment.center,
       width: widthRatio * width,
       height: heightRatio * 52.0,
       decoration: BoxDecoration(

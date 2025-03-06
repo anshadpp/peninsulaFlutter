@@ -1,13 +1,13 @@
 // import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:peninsula_app/utils.dart';
+import 'package:peninsula_app/utils/utils.dart';
 // import 'package:http/http.dart' as http;
 import 'dart:math' as math;
 
 import 'package:provider/provider.dart';
 
-import 'providers/loginProviders.dart';
+import '../providers/loginProviders.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

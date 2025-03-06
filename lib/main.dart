@@ -3,9 +3,11 @@ import 'package:peninsula_app/providers/loginProviders.dart';
 // import 'package:peninsula_app/login.dart';
 // import 'package:peninsula_app/providers/loginProviders.dart';
 import 'package:peninsula_app/providers/registrationProviders.dart';
-import 'package:peninsula_app/registration.dart';
+import 'package:peninsula_app/registration/registration.dart';
 // import 'package:peninsula_app/testingapi.dart';
 import 'package:provider/provider.dart';
+
+import 'community/community.dart';
 // import 'package:peninsula_app/sample.dart';
 
 void main() {
@@ -19,6 +21,9 @@ void main() {
     ),
   );
 }
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -36,7 +41,7 @@ class MyApp extends StatelessWidget {
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // home: const Login(),
       // home: const Loginscreen2(),
-      home: const Registration(),
+      home: const Community(),
     );
   }
 }

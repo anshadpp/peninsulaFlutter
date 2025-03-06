@@ -15,6 +15,36 @@ class Registrationprovider extends ChangeNotifier {
   bool get loading => _loading;
   bool get success => _success;
 
+  List<dynamic> dropdownItems = [];
+  String? dropdownValue;
+
+  Future<void> fetchDropdownItems() async{
+    var url = Uri.parse("http://213.136.93.14:8080/registrationUi");
+    Map<String,String> headers = {
+      "content-type":"application/json",
+      "accept":"application/json"
+    };
+    var response = await http.get(url,headers: headers);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['status'] == 1) {
+        dropdownItems = data['parameters']['user']['countryCodes'];
+        if(dropdownItems.isNotEmpty){
+          dropdownValue = dropdownItems.first['id'].toString();
+        }
+
+        notifyListeners();
+      }
+    }
+
+  }
+
+  void updateDropdownValue(String newValue) {
+    dropdownValue = newValue;
+    notifyListeners();
+  }
+
+
   Future<void> registration() async {
     _success = false;
     _loading =true;
@@ -32,7 +62,7 @@ class Registrationprovider extends ChangeNotifier {
         "lastName":lastName_text_controller.text,
         "email":email_text_controller.text,
         "phoneNumber":phoneNumber_text_controller.text,
-        "countryCodeId":"101"
+        "countryCodeId":dropdownValue
       })
     );
   if (response.statusCode == 200) {

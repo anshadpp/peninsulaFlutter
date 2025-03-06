@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 // import 'package:incube_flutter_app/utils/color_functions.dart';
 import 'package:http/http.dart' as http;
-import 'package:peninsula_app/utils.dart';
+import 'package:peninsula_app/utils/utils.dart';
  
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
