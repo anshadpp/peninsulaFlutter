@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peninsula_app/providers/communityProviders.dart';
 import 'package:peninsula_app/providers/loginProviders.dart';
 // import 'package:peninsula_app/login.dart';
 // import 'package:peninsula_app/providers/loginProviders.dart';
@@ -15,7 +16,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Registrationprovider()),
-        ChangeNotifierProvider(create: (_) => LoginProvider())
+        ChangeNotifierProvider(create: (_) => LoginProvider()),
+        ChangeNotifierProvider(create: (_) => Communityprovider())
       ],
       child: MyApp(),
     ),
