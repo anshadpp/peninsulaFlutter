@@ -58,7 +58,8 @@ List<Widget> posts(
               height: heightRatio * 48,
               width: widthRatio * 393,
               decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: const Color.fromARGB(112, 0, 0, 0))),
+                border: Border(
+                    top: BorderSide(color: const Color.fromARGB(41, 0, 0, 0))),
                 color: Colors.white,
               ),
               padding: const EdgeInsets.all(8),
@@ -72,16 +73,32 @@ List<Widget> posts(
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    post['user']['firstName'].toString() + post['user']['lastName'].toString(),
+                    post['user']['firstName'].toString() +
+                        post['user']['lastName'].toString(),
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                     ),
                   ),
                   const Spacer(),
-                  Icon(
-                    Icons.more_vert,
+                  PopupMenuButton(
+                    itemBuilder: (context) {
+                      return [
+                        ...(post['actions'] as List<dynamic>?)
+                                ?.map(
+                                  (action) => PopupMenuItem(
+                                      child: Text(
+                                    action['title'],
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                                )
+                                .toList() ??
+                            [],
+                      ];
+                    },
+                    icon: Icon(Icons.more_vert),
                     color: Colors.black,
+                    onSelected: (value) {},
                   ),
                 ],
               ),
@@ -104,7 +121,10 @@ List<Widget> posts(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text(post['caption'].toString().trimRight()), Text(postedDateTime(post['createdTime'].toString()))],
+                  children: [
+                    Text(post['caption'].toString().trimRight()),
+                    Text(postedDateTime(post['createdTime'].toString()))
+                  ],
                 ),
               ),
             ),
