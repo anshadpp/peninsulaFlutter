@@ -17,6 +17,7 @@ class Communityprovider extends ChangeNotifier{
     if(response.statusCode==200){
       var data = jsonDecode(response.body);
       posts = data['parameters']['posts'];
+      
       notifyListeners();
     }
 

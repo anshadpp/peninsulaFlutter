@@ -16,7 +16,7 @@ class _RegistrationState extends State<Registration> {
   // Future<void> registration() async {
   //   debugPrint("working");
   // }
-  String dropdownValue = "One";
+ 
 
   @override
   Widget build(BuildContext context) {

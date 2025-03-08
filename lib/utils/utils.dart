@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 Color hexToColor(String hex) {
   hex = hex.replaceAll("#", "");
@@ -107,4 +108,34 @@ Positioned button({
       ),
     ),
   );
+}
+
+
+//posted date calculation
+
+String postedDateTime(String postDateTime){
+  DateTime postTime = DateTime.parse(postDateTime);
+  DateTime nowTime = DateTime.now();
+  Duration difference = nowTime.difference(postTime);
+
+  if(difference.inSeconds<60){
+    return "${difference.inSeconds} sec ago";
+  }
+  if(difference.inMinutes<60){
+    return "${difference.inMinutes} min ago";
+  }
+
+  if(difference.inHours<24){
+    return "${difference.inHours} hours ago";
+  }
+
+  if(difference.inDays<7){
+    return "${difference.inDays} days ago";
+  }
+
+  if(postTime.year == nowTime.year){
+    return DateFormat("MMMM d").format(postTime);
+  }
+
+  return DateFormat("yyyy MMMM d").format(postTime);
 }
