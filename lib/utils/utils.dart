@@ -88,7 +88,6 @@ Positioned button({
 
           snackbar();
         }
-        ;
       },
       child: Container(
         width: widthRatio * width,

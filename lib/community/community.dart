@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peninsula_app/providers/communityProviders.dart';
+import 'package:peninsula_app/utils/actionHandling.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/utils.dart';
@@ -37,7 +38,17 @@ class _CommunityState extends State<Community> {
                     heightRatio: heightRatio,
                     widthRatio: widthRatio,
                     deviceWidth: deviceWidth,
-                    posts: communityprovider.posts),
+                    posts: communityprovider.posts,
+                    showSnackBar: (String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          message,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        backgroundColor:
+                            const Color.fromARGB(255, 247, 251, 247),
+                      ));
+                    }),
               ),
             );
           },
@@ -51,7 +62,8 @@ List<Widget> posts(
     {required double heightRatio,
     required double widthRatio,
     required double deviceWidth,
-    required List<dynamic> posts}) {
+    required List<dynamic> posts,
+    required Function showSnackBar}) {
   List<Widget> postsWidget = posts
       .map((post) => Column(children: [
             Container(
@@ -87,10 +99,12 @@ List<Widget> posts(
                         ...(post['actions'] as List<dynamic>?)
                                 ?.map(
                                   (action) => PopupMenuItem(
-                                      child: Text(
-                                    action['title'],
-                                    style: TextStyle(color: Colors.white),
-                                  )),
+                                    value: action,
+                                    child: Text(
+                                      action['title'],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
                                 )
                                 .toList() ??
                             [],
@@ -98,7 +112,22 @@ List<Widget> posts(
                     },
                     icon: Icon(Icons.more_vert),
                     color: Colors.black,
-                    onSelected: (value) {},
+                    onSelected: (dynamic action) async {
+                      String message = "";
+                      switch (action['actionType'].toString()) {
+                        case "request":
+                          message =
+                              requestAction(action['redirectTo'].toString());
+                          break;
+                        case "redirect":
+                          message = await redirectAction(action);
+
+                          break;
+                        default:
+                          break;
+                      }
+                      showSnackBar(message);
+                    },
                   ),
                 ],
               ),
