@@ -109,32 +109,58 @@ Positioned button({
   );
 }
 
-
 //posted date calculation
 
-String postedDateTime(String postDateTime){
+String postedDateTime(String postDateTime) {
   DateTime postTime = DateTime.parse(postDateTime);
   DateTime nowTime = DateTime.now();
   Duration difference = nowTime.difference(postTime);
 
-  if(difference.inSeconds<60){
+  if (difference.inSeconds < 60) {
     return "${difference.inSeconds} sec ago";
   }
-  if(difference.inMinutes<60){
+  if (difference.inMinutes < 60) {
     return "${difference.inMinutes} min ago";
   }
 
-  if(difference.inHours<24){
+  if (difference.inHours < 24) {
     return "${difference.inHours} hours ago";
   }
 
-  if(difference.inDays<7){
+  if (difference.inDays < 7) {
     return "${difference.inDays} days ago";
   }
 
-  if(postTime.year == nowTime.year){
+  if (postTime.year == nowTime.year) {
     return DateFormat("MMMM d").format(postTime);
   }
 
   return DateFormat("yyyy MMMM d").format(postTime);
+}
+
+List<Widget> backButton(
+    {required double heightRatio,
+    required double widthRatio,
+    required BuildContext context}) {
+  List<Widget> backButton = [
+    Positioned(
+      top: heightRatio * 37,
+      left: widthRatio * 2,
+      child: IconButton(
+        icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    ),
+    Positioned(
+      top: heightRatio * 50,
+      left: widthRatio * 30,
+      child: Text(
+        "Back",
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
+  ];
+  return backButton;
 }

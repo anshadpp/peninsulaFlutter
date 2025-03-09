@@ -20,39 +20,6 @@ class _LoginState extends State<Login> {
   bool isChecked = false;
   final formkey = GlobalKey<FormState>();
 
-  // late LoginProvider loginProvider;
-  // bool _isListenerAttached = false;
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   if (!_isListenerAttached) {
-  //     loginProvider = Provider.of<LoginProvider>(context, listen: false);
-  //     loginProvider.addListener(_loginStatusListener);
-  //     _isListenerAttached = true;
-  //   }
-  // }
-
-  // void _loginStatusListener() {
-  //   if (loginProvider.success) {
-  //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text(
-  //               "Login Successful! Your name is ${loginProvider.name} and your mail is ${loginProvider.email}"),
-  //           backgroundColor: Color.fromARGB(255, 20, 218, 43),
-  //         ),
-  //       );
-  //     });
-  //   }
-  // }
-
-  // @override
-  // void dispose() {
-  //   loginProvider.removeListener(_loginStatusListener);
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     // print("object");
@@ -63,20 +30,9 @@ class _LoginState extends State<Login> {
     final effectiveWidth = deviceWidth > 600 ? 600.0 : deviceWidth;
     final effectiveHeight = deviceHeight > 852 ? 852.0 : deviceHeight;
 
-    final loginProvider = Provider.of<LoginProvider>(context);
-
-    // void showSnackBarInLogin(String email, String name) {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content:
-    //         Text("Login Successful Your email is $email & your name is  $name"),
-    //     backgroundColor: Colors.green,
-    //   ));
-    // }
-
     double widthRatio = effectiveWidth / 393.0;
     double heightRatio = effectiveHeight / 852.0;
-    // double widthRatio = MediaQuery.of(context).size.width / 393.0;
-    // double heightRatio = MediaQuery.of(context).size.height / 852.0;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: ConstrainedBox(
@@ -103,13 +59,17 @@ class _LoginState extends State<Login> {
                                     "assets/images/peninsulaLogoWithName.png"),
                                 fit: BoxFit.fill)),
                       )),
+                  ...backButton(
+                      context: context,
+                      heightRatio: heightRatio,
+                      widthRatio: widthRatio),
                   Positioned(
                     top: heightRatio * 293.19,
                     left: widthRatio * 33.0,
                     child: Container(
                       alignment: Alignment(100.0, 100.0),
                       width: widthRatio * 326.0,
-                      height: heightRatio * 361.0,
+                      height: heightRatio * 400.0,
                       // padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -139,7 +99,7 @@ class _LoginState extends State<Login> {
                                 labelName: "Username/ Email ID",
                                 opacity: 0.5,
                                 textController:
-                                    loginProvider.username_textcontroller),
+                                    loginprovider.username_textcontroller),
                           ),
                           regField(
                             heightRatio: heightRatio,
@@ -151,7 +111,7 @@ class _LoginState extends State<Login> {
                                 labelName: "Password",
                                 opacity: 0.5,
                                 textController:
-                                    loginProvider.password_textcontroller),
+                                    loginprovider.password_textcontroller),
                           ),
                         ],
                       )),
@@ -160,30 +120,30 @@ class _LoginState extends State<Login> {
                     left: widthRatio * 61,
                     right: widthRatio * 61,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isChecked = value ?? false;
-                                });
-                              },
-                              side: BorderSide(color: Colors.white),
-                            ),
-                            Text(
-                              'Remember me',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: -0.09,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Checkbox(
+                        //       value: isChecked,
+                        //       onChanged: (bool? value) {
+                        //         setState(() {
+                        //           isChecked = value ?? false;
+                        //         });
+                        //       },
+                        //       side: BorderSide(color: Colors.white),
+                        //     ),
+                        //     Text(
+                        //       'Remember me',
+                        //       style: TextStyle(
+                        //         color: Colors.white70,
+                        //         fontFamily: 'Montserrat',
+                        //         fontWeight: FontWeight.w500,
+                        //         letterSpacing: -0.09,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         GestureDetector(
                           onTap: () {},
                           child: Text(
@@ -200,7 +160,7 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                   ),
-                  loginProvider.loading
+                  loginprovider.loading
                       ? Positioned(
                           top: heightRatio * 484,
                           left: widthRatio * 180,
@@ -217,12 +177,11 @@ class _LoginState extends State<Login> {
                           radius: 35,
                           title: "Login",
                           formkey: formkey,
-                          functionName: loginProvider.loginuser,
+                          functionName: loginprovider.loginuser,
                           snackbar: () => loginprovider.success
                               ? ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
-                                  content: Text(
-                                      loginprovider.message),
+                                  content: Text(loginprovider.message),
                                   backgroundColor: Colors.green,
                                 ))
                               : ScaffoldMessenger.of(context)
@@ -323,6 +282,29 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  Positioned(
+                      top: heightRatio * 645,
+                      left: widthRatio * 120,
+                      child: Row(
+                        children: [
+                          Text(
+                            "Don't have account?",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/register");
+                            },
+                            child: Text(
+                              "Signup",
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             );

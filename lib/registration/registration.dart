@@ -55,6 +55,7 @@ class _RegistrationState extends State<Registration> {
                 decoration: registrationAndLoginBackground(),
                 child: Stack(
                   children: [
+                    ...backButton(context: context,heightRatio: heightRatio,widthRatio: widthRatio),
                     Positioned(
                       top: heightRatio * 137,
                       left: widthRatio * 160,

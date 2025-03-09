@@ -138,25 +138,52 @@ List<Widget> posts(
                 post['locationPath'].toString(),
               ),
             ),
-            Container(
-              width: deviceWidth,
-              // height: heightRatio * 53,
-              decoration: BoxDecoration(
-                // border: Border(bottom: BorderSide(color: Colors.black)),
-                color: Colors.white,
-              ),
-              padding: const EdgeInsets.only(left: 17),
-              child: Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(post['caption'].toString().trimRight()),
-                    Text(postedDateTime(post['createdTime'].toString()))
-                  ],
+            Column(
+              children: [
+                Container(
+                  width: deviceWidth,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.only(left: 17),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if(post['caption'].toString().trimRight().isNotEmpty)
+                          Text(post['caption'].toString().trimRight().trimLeft()),
+                        
+                        Text(postedDateTime(post['createdTime'].toString()))
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
+            // Container(
+            //   width: deviceWidth,
+            //   // height: heightRatio * 53,
+            //   decoration: BoxDecoration(
+            //     // border: Border(bottom: BorderSide(color: Colors.black)),
+            //     color: Colors.white,
+            //   ),
+            //   padding: const EdgeInsets.only(left: 17),
+            //   child: Expanded(
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Column(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Text(post['caption'].toString().trimRight()),
+            //           Text(postedDateTime(post['createdTime'].toString()))
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ]))
       .toList();
   return postsWidget;
